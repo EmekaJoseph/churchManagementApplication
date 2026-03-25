@@ -19,7 +19,7 @@ export default defineNuxtConfig({
     // 'vue3-carousel/carousel.css',
     // // 'vue-tel-input/vue-tel-input.css',
     // 'vue-select/dist/vue-select.css',
-    // '~/layouts/styles/custom.css'
+    '~/layouts/styles/custom.css'
   ],
   //  https://github.com/caoxiemeihao/nuxt-electron#quick-setup
   electron: {
@@ -105,9 +105,9 @@ export default defineNuxtConfig({
   //  vue-router may not work as expected in history mode.
   //  use hash mode instead.
   //
-  router: {
-    options: {
-      hashMode: true,
-    },
-  },
+  // router: {
+  //   options: {
+  //     hashMode: true,
+  //   },
+  // },
 })
