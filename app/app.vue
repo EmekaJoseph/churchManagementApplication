@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <div style="text-align: center;">{{ timestamp }}</div>
-    <NuxtWelcome />
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
 
 <script setup>
