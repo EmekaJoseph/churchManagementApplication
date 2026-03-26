@@ -10,15 +10,16 @@
 
 .vue3-easy-data-table, .vue3-easy-data-table__main.fixed-header,
 .vue3-easy-data-table__footer{
-  border-radius: 7px !important;
+  /* border-radius: 7px !important; */
+  border: none !important;
 }
 
 
-.vue3-easy-data-table__body td {
+/* .vue3-easy-data-table__body td {
   border: none !important;
   padding-block: 20px !important;
-  /* background-color: transparent !important; */
-}
+  background-color: transparent !important;
+} */
 
 .vue3-easy-data-table__main.fixed-header th {
   border: none !important;
