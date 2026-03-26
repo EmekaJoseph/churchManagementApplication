@@ -10,11 +10,28 @@
       </div>
 
       <nav class="nav-menu">
-        <NuxtLink v-for="item in menuItems" :key="item.path" :to="item.path" class="nav-item"
-          exact-active-class="active">
-          <i :class="item.icon" class="icon"></i>
-          <span>{{ item.label }}</span>
-        </NuxtLink>
+        <template v-for="item in menuItems" :key="item.label">
+          <!-- Normal Nav Item -->
+          <NuxtLink v-if="!item.subItems" :to="item.path" class="nav-item" exact-active-class="active">
+            <i :class="item.icon" class="icon"></i>
+            <span>{{ item.label }}</span>
+          </NuxtLink>
+
+          <div v-else class="nav-dropdown" :class="{ 'open': openMenus.includes(item.label) }">
+            <button @click="toggleMenu(item.label)" class="nav-item dropdown-toggle-btn"
+              :class="{ 'active': isSubItemActive(item) }">
+              <i :class="item.icon" class="icon"></i>
+              <span>{{ item.label }}</span>
+              <i class="bi bi-chevron-down chevron"></i>
+            </button>
+            <div class="sub-menu">
+              <NuxtLink v-for="sub in item.subItems" :key="sub.path" :to="sub.path" class="sub-item"
+                exact-active-class="active">
+                <span>{{ sub.label }}</span>
+              </NuxtLink>
+            </div>
+          </div>
+        </template>
       </nav>
 
       <div class="sidebar-footer">
@@ -67,11 +84,46 @@ const menuItems = [
   { label: 'Attendance', path: '/account/attendance', icon: 'bi bi-calendar2-check-fill' },
   { label: 'Offerings', path: '/account/offerings', icon: 'bi bi-cash-stack' },
   { label: 'Reports', path: '/account/reports', icon: 'bi bi-bar-chart-fill' },
+  {
+    label: 'Settings',
+    icon: 'bi bi-gear-fill',
+    subItems: [
+      { label: 'General', path: '/account/settings/general' },
+      { label: 'Security', path: '/account/settings/security' },
+      { label: 'Member Categories', path: '/account/settings/member-categories' },
+    ]
+  },
 ]
 
+const openMenus = ref([])
+
+const toggleMenu = (label) => {
+  const index = openMenus.value.indexOf(label)
+  if (index > -1) {
+    openMenus.value.splice(index, 1)
+  } else {
+    openMenus.value.push(label)
+  }
+}
+
+const isSubItemActive = (item) => {
+  return item.subItems?.some(sub => route.path === sub.path)
+}
+
 const currentPageTitle = computed(() => {
-  const item = menuItems.find(i => i.path === route.path)
-  return item ? item.label : 'Dashboard'
+  // Check main items
+  const mainItem = menuItems.find(i => i.path === route.path)
+  if (mainItem) return mainItem.label
+
+  // Check sub items
+  for (const item of menuItems) {
+    if (item.subItems) {
+      const subItem = item.subItems.find(s => s.path === route.path)
+      if (subItem) return `${item.label} / ${subItem.label}`
+    }
+  }
+
+  return 'Dashboard'
 })
 
 const userInitials = computed(() => {
@@ -112,19 +164,19 @@ const handleLogout = () => {
 }
 
 .sidebar {
-  width: 280px;
+  width: 250px;
   background-color: #ffffff;
   border-right: 1px solid #e2e8f0;
   display: flex;
   flex-direction: column;
-  padding: 2rem 1.5rem;
+  padding: 1.5rem 1rem;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 3rem;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
 }
 
 .abstract-logo {
@@ -141,7 +193,7 @@ const handleLogout = () => {
 }
 
 .brand-name {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #1e293b;
   letter-spacing: 0.5px;
@@ -151,18 +203,37 @@ const handleLogout = () => {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  /* Custom Scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #e2e8f0 transparent;
+}
+
+.nav-menu::-webkit-scrollbar {
+  width: 4px;
+}
+
+.nav-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.nav-menu::-webkit-scrollbar-thumb {
+  background-color: #e2e8f0;
+  border-radius: 20px;
 }
 
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.875rem 1rem;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
   border-radius: 12px;
   color: #64748b;
   text-decoration: none;
   font-weight: 500;
+  font-size: 1rem !important;
   transition: all 0.2s ease;
 }
 
@@ -176,9 +247,79 @@ const handleLogout = () => {
   color: #7b1fa2;
 }
 
+/* Dropdown Styles */
+.nav-dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-toggle-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.chevron {
+  margin-left: auto;
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+  color: #94a3b8;
+}
+
+.nav-dropdown.open .chevron {
+  transform: rotate(180deg);
+}
+
+.sub-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.nav-dropdown.open .sub-menu {
+  max-height: 300px;
+  /* Adjust based on content */
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.sub-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 0.825rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.sub-item:hover {
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+.sub-item.active {
+  color: #7b1fa2;
+  font-weight: 600;
+  background-color: #f5f3ff;
+}
+
 .sidebar-footer {
   margin-top: auto;
-  padding-top: 1.5rem;
+  padding-top: 1rem;
   border-top: 1px solid #f1f5f9;
 }
 
@@ -192,16 +333,15 @@ const handleLogout = () => {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.875rem 1rem;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
   border-radius: 12px;
   color: #a28c1f;
-  /* background-color: #fffff3; */
   background-color: transparent;
   border: 1px solid #f8f8c0;
   cursor: pointer;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   transition: all 0.2s ease;
 }
 
@@ -245,14 +385,15 @@ const handleLogout = () => {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.875rem 1rem;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
   border-radius: 12px;
   color: #ef4444;
   background: none;
   border: none;
   cursor: pointer;
   font-weight: 500;
+  font-size: 0.85rem;
   transition: background 0.2s ease;
 }
 
@@ -320,12 +461,12 @@ const handleLogout = () => {
 
 .page-container {
   flex: 1;
-  padding: 2.5rem;
+  padding: 1.2rem;
   overflow-y: auto;
   background-color: #f8fafc;
 }
 
 .icon {
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 </style>

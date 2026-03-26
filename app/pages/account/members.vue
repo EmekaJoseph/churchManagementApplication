@@ -8,30 +8,46 @@
         </div>
 
         <div class="row justify-content-end g-2 mb-3">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <CustomInputSearch v-model="searchValue" placeholder="Search members..." />
           </div>
+          <div class="col-md-3"></div>
           <div class="col-md-2">
             <button class="btn btn-dark w-100">IMPORT</button>
           </div>
 
-          <div class="col-md-2">
-            <button class="btn btn-theme w-100">ADD NEW</button>
+          <div class="col-md-3">
+            <button @click="handleAddMember" class="btn btn-theme w-100">ADD MEMBERS</button>
           </div>
         </div>
 
       </div>
 
-      <EasyDataTable :headers="headers" :items="members" :search-value="searchValue" buttons-pagination show-index
-        header-class-name="table-header">
+      <EasyDataTable :headers="headers" :items="members" :search-value="searchValue" buttons-pagination show-index>
+
+        <template #header-index>
+          S/N
+        </template>
+
         <template #item-surname="{ surname, firstname, lastname }">
           <div class="member-identity">
             <span class="member-surname">{{ surname }}</span>, {{ firstname }} {{ lastname }}
           </div>
         </template>
 
-        <template #item-birthday="{ birthday }">
-          <span class="text-muted font-monospace">{{ birthday }}</span>
+
+        <template #item-action="{ id }">
+          <div class="d-flex gap-3 fs-6">
+            <span class="cursor-pointer text-theme hover-tiltY">
+              <i class="bi bi-eye"></i>
+            </span>
+            <span class="cursor-pointer text-success hover-tiltY">
+              <i class="bi bi-pencil"></i>
+            </span>
+            <span class="cursor-pointer text-danger hover-tiltY">
+              <i class="bi bi-trash"></i>
+            </span>
+          </div>
         </template>
 
       </EasyDataTable>
@@ -49,15 +65,17 @@ definePageMeta({
 
 const { members } = useMemberStore();
 const searchValue = ref('');
+const { swalConfirm, swalSuccess } = sweetAlerts
 
 const headers = [
   { text: "NAME", value: "surname", sortable: true, width: 200 },
   { text: "GENDER", value: "gender", sortable: true },
   { text: "PHONE", value: "phone" },
   { text: "EMAIL", value: "email" },
+  { text: " ", value: "action" },
   // { text: "ADDRESS", value: "house_address", width: 250 },
   // { text: "BIRTHDAY", value: "birthday", sortable: true },
-  { text: "POSITION", value: "position", sortable: true, width: 180 },
+  // { text: "POSITION", value: "position", sortable: true, width: 180 },
 ];
 
 const getPositionBadgeClass = (position: string) => {
@@ -73,6 +91,17 @@ const getPositionBadgeClass = (position: string) => {
   return mapping[position] || 'bg-light text-dark';
 };
 
+function handleAddMember() {
+  swalConfirm('Add Member', 'Are you sure you want to add a new member?', 'Add Member', 'question')
+}
+
+function handleEditMember(id: string) {
+  swalConfirm('Edit Member', 'Are you sure you want to edit this member?', 'Edit Member', 'question')
+}
+
+function handleDeleteMember(id: string) {
+  swalConfirm('Delete Member', 'Are you sure you want to delete this member?', 'Delete Member', 'question')
+}
 </script>
 
 <style scoped>

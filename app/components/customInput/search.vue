@@ -36,6 +36,7 @@ function emitValue(event: Event) {
     position: relative;
     display: flex;
     align-items: center;
+    border-color: #a1a9b1 !important;
 }
 
 .search-box {
