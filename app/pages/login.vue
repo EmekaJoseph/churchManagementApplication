@@ -44,6 +44,12 @@
                         <span>or Sign in with Email</span>
                     </div> -->
 
+                    <div v-if="form.generalErr" class="alert alert-danger py-2 mb-4 small animate-fade-in-up"
+                        role="alert"
+                        style="border-radius: 10px; border: none; background-color: #fff1f0; color: #ff4d4f;">
+                        <i class="bi bi-exclamation-circle-fill me-2"></i>
+                        {{ form.generalErr }}
+                    </div>
                     <form @submit.prevent="handleLogin" class="row g-3">
                         <div class="col-md-12">
                             <div class="form-label">Username</div>
@@ -60,7 +66,8 @@
                         </div>
 
                         <div class="col-md-12 mt-4">
-                            <CustomInputSubmitButton type="submit" className="btn-theme btn-lg w-100">
+                            <CustomInputSubmitButton :loading="form.loading" type="submit"
+                                className="btn-theme btn-lg w-100">
                                 Login
                             </CustomInputSubmitButton>
                         </div>
@@ -77,17 +84,50 @@
 
 <script setup>
 import { reactive } from 'vue';
+import { useAuthStore } from '~/stores/authStore';
+
+const authStore = useAuthStore();
+const router = useRouter();
 
 const form = reactive({
     username: '',
     password: '',
     rememberMe: false,
     usernameErr: '',
-    passwordErr: ''
+    passwordErr: '',
+    generalErr: '',
+    loading: false,
 });
 
-const handleLogin = () => {
-    console.log('Login submitted:', form);
+const handleLogin = async () => {
+    // Reset errors
+    form.usernameErr = '';
+    form.passwordErr = '';
+    form.generalErr = '';
+
+    // Simple validation
+    if (!form.username) {
+        form.usernameErr = 'Username is required';
+    }
+    if (!form.password) {
+        form.passwordErr = 'Password is required';
+    }
+
+    if (form.usernameErr || form.passwordErr) return;
+
+    form.loading = true;
+
+    // Simulate API delay for better UX
+    await new Promise(resolve => setTimeout(resolve, 800));
+
+    const success = authStore.login(form.username, form.password);
+
+    if (success) {
+        navigateTo('/account');
+    } else {
+        form.generalErr = 'Invalid username or password';
+        form.loading = false;
+    }
 };
 
 
@@ -220,7 +260,7 @@ const handleLogin = () => {
 .welcome-sub {
     color: #b2bec3;
     font-size: 0.9rem;
-    margin-bottom: 35px;
+    margin-bottom: 20px;
 }
 
 
