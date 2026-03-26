@@ -2,7 +2,7 @@
     <div class="landing-page">
         <div class="content-wrapper">
             <!-- Logo area -->
-            <div class="logo-area">
+            <div class="logo-area animate-fade-in-down">
                 <div class="abstract-logo">
                     <span></span><span></span><span></span><span></span>
                 </div>
@@ -10,16 +10,18 @@
             </div>
 
             <!-- Hero Section -->
-            <div class="hero">
+            <div class="hero animate-fade-in-up">
                 <h1 class="main-title">Smart Church Management, <br /> Built for Reliability</h1>
                 <p class="subtext">
-                    A simple and reliable church management system designed to help you track members, attendance, and finances with ease.
+                    A simple and reliable church management system designed to help you track members, attendance, and
+                    finances with ease.
                 </p>
 
                 <div class="actions">
                     <button class="get-started-btn" @click="navigateToLogin">
                         Get Started
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                             <polyline points="12 5 19 12 12 19"></polyline>
                         </svg>
@@ -48,7 +50,8 @@ const navigateToLogin = () => {
     width: 100%;
     overflow: hidden;
     position: relative;
-    background-color: #fcece0; /* The base peach color from login */
+    background-color: #fcece0;
+    /* The base peach color from login */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,7 +65,7 @@ const navigateToLogin = () => {
     width: 100%;
     height: 100%;
     background: radial-gradient(circle at top right, rgba(123, 31, 162, 0.05), transparent),
-                radial-gradient(circle at bottom left, rgba(252, 236, 224, 1), transparent);
+        radial-gradient(circle at bottom left, rgba(252, 236, 224, 1), transparent);
     z-index: 1;
 }
 
@@ -80,7 +83,6 @@ const navigateToLogin = () => {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    animation: fadeInDown 0.8s ease-out;
 }
 
 .abstract-logo {
@@ -103,9 +105,7 @@ const navigateToLogin = () => {
     font-size: 0.9rem;
 }
 
-.hero {
-    animation: fadeInUp 1s ease-out;
-}
+
 
 .main-title {
     font-size: 4rem;
@@ -184,27 +184,32 @@ const navigateToLogin = () => {
     border-radius: 50%;
 }
 
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
-}
 
-@keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
 
 @media (max-width: 992px) {
-    .main-title { font-size: 3.2rem; }
+    .main-title {
+        font-size: 3.2rem;
+    }
 }
 
 @media (max-width: 768px) {
-    .main-title { font-size: 2.5rem; }
-    .subtext { font-size: 1.1rem; }
-    .get-started-btn { padding: 1rem 2.2rem; font-size: 1rem; }
+    .main-title {
+        font-size: 2.5rem;
+    }
+
+    .subtext {
+        font-size: 1.1rem;
+    }
+
+    .get-started-btn {
+        padding: 1rem 2.2rem;
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
-    .main-title { font-size: 2rem; }
+    .main-title {
+        font-size: 2rem;
+    }
 }
 </style>

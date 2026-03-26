@@ -1,0 +1,51 @@
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-fade-in-down {
+    animation: fadeInDown 0.8s ease-out;
+}
+
+
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.hover-tiltX {
+    transition: all ease-in-out 0.4s;
+}
+
+.hover-tiltX:hover {
+    transform: translateX(5px);
+}
+
+.hover-tiltY {
+    transition: all ease-in-out 0.4s;
+}
+
+.hover-tiltY:hover {
+    transform: translateY(-5px);
+}

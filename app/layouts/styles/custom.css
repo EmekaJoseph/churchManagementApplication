@@ -2,6 +2,7 @@
 @import "./plugins/date-picker.css";
 @import "./plugins/vue-select.css";
 @import "./plugins/easy-data-table.css";
+@import "./animations.css";
 /* @import './theme-style.css'; */
 
 input:focus,
@@ -89,25 +90,7 @@ textarea::placeholder {
   min-height: 120vh;
 }
 
-.min-vh-110 {
-  min-height: 110vh;
-}
 
-.min-vh-80 {
-  min-height: 80vh;
-}
-
-.min-vh-70 {
-  min-height: 70vh;
-}
-
-.min-vh-60 {
-  min-height: 60vh;
-}
-
-.min-vh-50 {
-  min-height: 50vh;
-}
 
 .cursor-notallowed {
   cursor: not-allowed !important;
@@ -116,21 +99,7 @@ textarea::placeholder {
   cursor: pointer;
 }
 
-.hover-tiltX {
-  transition: all ease-in-out 0.4s;
-}
 
-.hover-tiltX:hover {
-  transform: translateX(5px);
-}
-
-.hover-tiltY {
-  transition: all ease-in-out 0.4s;
-}
-
-.hover-tiltY:hover {
-  transform: translateY(-5px);
-}
 
 .hover-bold:hover {
   font-weight: bold;

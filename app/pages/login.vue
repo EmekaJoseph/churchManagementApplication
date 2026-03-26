@@ -49,12 +49,14 @@
                             <div class="form-label">Username</div>
                             <CustomInputText v-model="form.username" className="form-control-lg" placeholder="Username"
                                 required />
+                            <div v-if="form.usernameErr" class="xsmall text-danger">{{ form.usernameErr }}</div>
                         </div>
 
                         <div class="col-md-12">
                             <div class="form-label">Password</div>
                             <CustomInputPassword v-model="form.password" className="form-control-lg"
                                 placeholder="Password" required />
+                            <div v-if="form.passwordErr" class="xsmall text-danger">{{ form.passwordErr }}</div>
                         </div>
 
                         <div class="col-md-12 mt-4">
@@ -79,16 +81,16 @@ import { reactive } from 'vue';
 const form = reactive({
     username: '',
     password: '',
-    rememberMe: false
+    rememberMe: false,
+    usernameErr: '',
+    passwordErr: ''
 });
 
 const handleLogin = () => {
     console.log('Login submitted:', form);
 };
 
-const handleGoogleSignIn = () => {
-    console.log('Google Sign-in clicked');
-};
+
 </script>
 
 <style scoped>
@@ -191,7 +193,7 @@ const handleGoogleSignIn = () => {
 }
 
 .logo-area {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .abstract-logo {
