@@ -1,14 +1,14 @@
 <template>
     <div class="login-page">
         <div class="main-card">
-            <!-- Left Side: Illustration & Marketing -->
+            <!-- Left Side: Illustration -->
             <div class="left-section">
                 <div class="illustration-container">
                     <img src="/images/skeleton_illustration.png" alt="Creative Skeleton" class="hero-img" />
                 </div>
                 <div class="marketing-text">
-                    <h2>Turn your ideas into reality.</h2>
-                    <p>Start for free and get attractive offers from the community</p>
+                    <h2>Faith and Community, Managed with Care.</h2>
+                    <p>Streamline your ministry and focus on what matters most.</p>
                 </div>
             </div>
 
@@ -32,8 +32,8 @@
                         </div>
                     </div>
 
-                    <h1 class="welcome-title">Login to your Account</h1>
-                    <p class="welcome-sub">See what is going on with your business</p>
+                    <h1 class="welcome-title">Sign in to Church Manager</h1>
+                    <p class="welcome-sub">Access your ministry dashboard and data</p>
 
                     <!-- <button class="google-login-btn" @click="handleGoogleSignIn">
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
@@ -77,7 +77,7 @@
 import { reactive } from 'vue';
 
 const form = reactive({
-    email: '',
+    username: '',
     password: '',
     rememberMe: false
 });
