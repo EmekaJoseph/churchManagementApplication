@@ -3,7 +3,6 @@
 @import "./plugins/vue-select.css";
 @import "./plugins/easy-data-table.css";
 @import "./animations.css";
-/* @import './theme-style.css'; */
 
 input:focus,
 select:focus,
@@ -13,7 +12,6 @@ button:focus,
 .page-link:focus {
   outline: none !important;
   box-shadow: none !important;
-  /* border-color: #dee2e6 !important; */
   border-color: var(--theme-color) !important;
 }
 
