@@ -4,8 +4,8 @@
 }
 
 
-.vue3-easy-data-table__body{
-  min-height: 100vh;
+.vue3-easy-data-table__main{
+  min-height: 100vh !important;
 }
 
 .vue3-easy-data-table, .vue3-easy-data-table__main.fixed-header,

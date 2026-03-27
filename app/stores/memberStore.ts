@@ -1,4 +1,3 @@
-import { reactive, computed } from 'vue'
 
 export interface Member {
   id: number
@@ -28,7 +27,7 @@ const state = reactive({
       firstname: ['Samuel', 'Esther', 'Peter', 'Ruth', 'Joseph', 'Sarah', 'Paul', 'Lydia', 'James', 'Deborah'][Math.floor(Math.random() * 10)],
       lastname: ['Adeyemi', 'Okeke', 'Tukur', 'Effiong', 'Balogun', 'Nwachukwu', 'Danjuma', 'Bello', 'Eze', 'Ojo'][Math.floor(Math.random() * 10)],
       phone: `080${Math.floor(Math.random() * 10000000).toString().padStart(8, '0')}`,
-      email: `${['samuel', 'esther', 'peter', 'ruth', 'joseph'][Math.floor(Math.random() * 5)]}${i+6}@church.org`,
+      email: `${['samuel', 'esther', 'peter', 'ruth', 'joseph'][Math.floor(Math.random() * 5)]}${i + 6}@church.org`,
       house_address: `${Math.floor(Math.random() * 100)} Gospel Road, City ${Math.floor(Math.random() * 10)}`,
       birthday: `${(Math.floor(Math.random() * 12) + 1).toString().padStart(2, '0')}/${Math.floor(Math.random() * 30 + 70)}`,
       gender: Math.random() > 0.5 ? 'Male' : 'Female' as any,
@@ -38,8 +37,43 @@ const state = reactive({
   ] as Member[]
 })
 
+const modal = reactive({
+  isOpen: false,
+  mode: 'add' as 'add' | 'edit',
+  currentMember: null as Member | null
+})
+
+const viewModal = reactive({
+  isOpen: false,
+  currentMember: null as Member | null
+})
+
 export const useMemberStore = () => {
   return {
-    members: computed(() => state.members)
+    members: computed(() => state.members),
+    viewModal,
+    modal: computed(() => modal),
+    addMember(member: Omit<Member, 'id'>) {
+      const newMember: Member = { id: Date.now(), ...member }
+      state.members.push(newMember)
+    },
+    updateMember(updatedMember: Member) {
+      const index = state.members.findIndex(m => m.id === updatedMember.id)
+      if (index !== -1) {
+        state.members[index] = updatedMember
+      }
+    },
+    deleteMember(id: number) {
+      state.members = state.members.filter(m => m.id !== id)
+    },
+    openModal(mode: 'add' | 'edit', member: Member | null = null) {
+      modal.isOpen = true
+      modal.mode = mode
+      modal.currentMember = member
+    },
+    closeModal() {
+      modal.isOpen = false
+      modal.currentMember = null
+    }
   }
 }

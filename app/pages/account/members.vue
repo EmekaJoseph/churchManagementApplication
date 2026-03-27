@@ -29,6 +29,10 @@
           S/N
         </template>
 
+        <template #empty-message>
+          <NoDataSlot text="No members found" icon="bi-people" />
+        </template>
+
         <template #item-surname="{ surname, firstname, lastname }">
           <div class="member-identity">
             <span class="member-surname">{{ surname }}</span>, {{ firstname }} {{ lastname }}
@@ -36,34 +40,54 @@
         </template>
 
 
-        <template #item-action="{ id }">
-          <div class="d-flex gap-3 fs-6">
-            <span class="cursor-pointer text-theme hover-tiltY">
-              <i class="bi bi-eye"></i>
-            </span>
-            <span class="cursor-pointer text-success hover-tiltY">
-              <i class="bi bi-pencil"></i>
-            </span>
-            <span class="cursor-pointer text-danger hover-tiltY">
-              <i class="bi bi-trash"></i>
-            </span>
+        <template #item-action="item">
+          <div class="dropdown">
+            <div class="fs-5 dropdown-toggle cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots"></i>
+            </div>
+            <ul class="dropdown-menu  shadow-lg border-0">
+              <li>
+                <span @click="viewMember(item)"
+                  class="dropdown-item cursor-pointer hover-tiltX bg-transparent text-dark">
+                  <i class="bi bi-eye"></i>
+                  View
+                </span>
+              </li>
+              <li>
+                <span class="dropdown-item cursor-pointer hover-tiltX bg-transparent text-warning-emphasis ">
+                  <i class="bi bi-pencil"></i>
+                  Edit
+                </span>
+              </li>
+              <li>
+                <span class="dropdown-item cursor-pointer hover-tiltX bg-transparent text-danger-emphasis ">
+                  <i class="bi bi-trash"></i>
+                  Delete
+                </span>
+              </li>
+            </ul>
           </div>
+
         </template>
 
       </EasyDataTable>
     </div>
   </div>
+
+  <MembersViewModal />
 </template>
 
 <script setup lang="ts">
-import { useMemberStore } from '~/stores/memberStore';
-
 definePageMeta({
   layout: 'dashboard',
   middleware: 'auth'
 })
 
-const { members } = useMemberStore();
+
+import { useMemberStore, type Member } from '~/stores/memberStore';
+
+
+const { members, viewModal } = useMemberStore();
 const searchValue = ref('');
 const { swalConfirm, swalSuccess } = sweetAlerts
 
@@ -90,6 +114,12 @@ const getPositionBadgeClass = (position: string) => {
   };
   return mapping[position] || 'bg-light text-dark';
 };
+
+
+function viewMember(item: Member) {
+  viewModal.isOpen = !viewModal.isOpen
+  viewModal.currentMember = item
+}
 
 function handleAddMember() {
   swalConfirm('Add Member', 'Are you sure you want to add a new member?', 'Add Member', 'question')

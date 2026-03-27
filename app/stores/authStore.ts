@@ -1,5 +1,3 @@
-import { reactive, computed } from 'vue'
-
 const state = reactive({
     user: null as any,
     isLoggedIn: false
@@ -9,8 +7,8 @@ export const useAuthStore = () => {
     const login = (username: string, password: string) => {
         // Hardcoded credentials for Church Manager
         if (username === 'admin' && password === 'admin') {
-            state.user = { 
-                name: 'Admin User', 
+            state.user = {
+                name: 'Admin User',
                 email: 'admin@churchmanager.com',
                 role: 'Administrator'
             }
