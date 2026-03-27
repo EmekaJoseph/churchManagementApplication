@@ -52,28 +52,31 @@ export const useMemberStore = () => {
   return {
     members: computed(() => state.members),
     viewModal,
-    modal: computed(() => modal),
+    modal,
     addMember(member: Omit<Member, 'id'>) {
       const newMember: Member = { id: Date.now(), ...member }
-      state.members.push(newMember)
+      state.members.unshift(newMember)
     },
     updateMember(updatedMember: Member) {
       const index = state.members.findIndex(m => m.id === updatedMember.id)
       if (index !== -1) {
-        state.members[index] = updatedMember
+        state.members[index] = { ...updatedMember }
       }
     },
     deleteMember(id: number) {
       state.members = state.members.filter(m => m.id !== id)
     },
     openModal(mode: 'add' | 'edit', member: Member | null = null) {
-      modal.isOpen = true
       modal.mode = mode
-      modal.currentMember = member
+      modal.currentMember = member ? { ...member } : null
+      modal.isOpen = true
     },
     closeModal() {
       modal.isOpen = false
-      modal.currentMember = null
+      // Don't reset currentMember immediately to avoid flash during transition
+      setTimeout(() => {
+        if (!modal.isOpen) modal.currentMember = null
+      }, 300)
     }
   }
 }

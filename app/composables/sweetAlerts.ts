@@ -28,11 +28,11 @@ export default {
             title: `${title}`,
             text: `${text}`,
             icon: `${icon}`,
-            iconColor: `${icon == 'error' ? errorColor : themeColor}`,
+            iconColor: `${icon == 'error' || icon == 'warning' ? errorColor : themeColor}`,
             showCancelButton: true,
             confirmButtonText: `${btnText}`,
             cancelButtonText: 'cancel',
-            confirmButtonColor: `${icon == 'error' ? errorColor : themeColor}`,
+            confirmButtonColor: `${icon == 'error' || icon == 'warning' ? errorColor : themeColor}`,
             // cancelButtonColor: 'transparent',
             reverseButtons: true,
 
