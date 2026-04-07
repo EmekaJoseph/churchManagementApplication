@@ -82,7 +82,7 @@ const menuItems = [
   { label: 'Dashboard', path: '/account', icon: 'bi bi-grid-fill' },
   { label: 'Members', path: '/account/members', icon: 'bi bi-people-fill' },
   { label: 'Attendance', path: '/account/attendance', icon: 'bi bi-calendar2-check-fill' },
-  { label: 'Offerings', path: '/account/offerings', icon: 'bi bi-cash-stack' },
+  { label: 'Finances', path: '/account/finances', icon: 'bi bi-cash-stack' },
   { label: 'Reports', path: '/account/reports', icon: 'bi bi-bar-chart-fill' },
   {
     label: 'Settings',
