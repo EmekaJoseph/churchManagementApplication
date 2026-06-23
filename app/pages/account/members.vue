@@ -33,9 +33,9 @@
           <NoDataSlot text="No members found" icon="bi-people" />
         </template>
 
-        <template #item-surname="{ surname, firstname, lastname }">
-          <div class="member-identity">
-            <span class="member-surname">{{ surname }}</span>, {{ firstname }} {{ lastname }}
+        <template #item-surname="item">
+          <div class="member-identity cursor-pointer hover-tiltY" @click="viewMember(item)">
+            <span class="member-surname">{{ item.surname }}</span>, {{ item.firstname }} {{ item.lastname }}
           </div>
         </template>
 
@@ -48,22 +48,22 @@
             <ul class="dropdown-menu shadow-lg border-0">
               <li>
                 <span @click="viewMember(item)"
-                  class="dropdown-item cursor-pointer hover-tiltX bg-transparent text-dark">
-                  <i class="bi bi-eye me-2"></i>
+                  class="dropdown-item cursor-pointer hover-tiltX bg-transparent text-dark small">
+                  <i class="bi bi-eye"></i>
                   View
                 </span>
               </li>
               <li>
                 <span @click="openModal('edit', item)"
-                  class="dropdown-item cursor-pointer hover-tiltX bg-transparent text-warning-emphasis">
-                  <i class="bi bi-pencil me-2"></i>
+                  class="dropdown-item cursor-pointer hover-tiltX bg-transparent text-success-emphasis small">
+                  <i class="bi bi-pencil"></i>
                   Edit
                 </span>
               </li>
               <li>
                 <span @click="handleDeleteMember(item)"
-                  class="dropdown-item cursor-pointer hover-tiltX bg-transparent text-danger-emphasis">
-                  <i class="bi bi-trash me-2"></i>
+                  class="dropdown-item cursor-pointer hover-tiltX bg-transparent text-danger small">
+                  <i class="bi bi-trash"></i>
                   Delete
                 </span>
               </li>
@@ -142,6 +142,7 @@ async function handleDeleteMember(member: Member) {
 .member-surname {
   font-weight: 700;
   color: #1e293b;
+  color: var(--theme-color);
 }
 
 .cursor-pointer {

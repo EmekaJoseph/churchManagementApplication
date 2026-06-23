@@ -30,6 +30,12 @@ textarea::placeholder {
   font-size: 16px;
 }
 
+.form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #747a83;
+}
+
 .btn-theme,
 .btn-theme:disabled {
   background-color: var(--theme-btn);
@@ -88,16 +94,12 @@ textarea::placeholder {
   min-height: 120vh;
 }
 
-
-
 .cursor-notallowed {
   cursor: not-allowed !important;
 }
 .cursor-pointer {
   cursor: pointer;
 }
-
-
 
 .hover-bold:hover {
   font-weight: bold;

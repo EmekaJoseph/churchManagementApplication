@@ -1,19 +1,25 @@
 :root {
-  /* --vs-controls-color: var(--vt-c-white); */
-  /* --vs-border-color: var(--bs-border-color); */
+  /* --vs-controls-color: #664cc3 !important; */
+  /* --vs-border-color: #eee !important; */
 
+  /* --vs-controls-color: var(--vt-c-white); */
+  --vs-border-color: var(--bs-border-color) !important;
+  --vs-dropdown-box-shadow: 5px 3px 6px 5px var(--vs-colors--darkest) !important;
+
+  /* Dropdown */
   /* --vs-dropdown-bg: var(--theme-color); */
-  /* --vs-dropdown-color: var(--dynamic-color); */
-  /* --vs-dropdown-option-color:var(--dynamic-color); */
+  /* --vs-dropdown-color: red; */
+  /* --vs-dropdown-option-color: red !important; */
+  --vs-dropdown-z-index: 9999 !important;
 
   /* --vs-selected-bg: var(--theme-color); */
   /* --vs-selected-color: var(--vt-c-white); */
 
   /* --vs-search-input-color: var(--dynamic-color); */
 
-  --vs-dropdown-option--active-color: #000 !important;
-  --vs-dropdown-option--active-bg: #eeeeee !important;
-  --vs-dropdown-z-index: 9999;
+  /* Options */
+  /* --vs-dropdown-option--active-color: #000 !important; */
+  --vs-dropdown-option--active-bg: var(--theme-color) !important;
 }
 
 .vs__search {
@@ -50,4 +56,8 @@
     padding: 5px !important;
     font-size: 11px !important;
   }
+}
+
+.vs__dropdown {
+  background-color: red !important;
 }
