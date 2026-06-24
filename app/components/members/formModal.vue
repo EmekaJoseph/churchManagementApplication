@@ -30,15 +30,15 @@
 
                 <div class="col-md-4">
                   <label class="form-label">First Name</label>
-                  <CustomInputText v-model="localMember.firstname" placeholder="" required />
+                  <CustomInputText v-model="localMember.firstname" placeholder="" />
                 </div>
                 <div class="col-md-4">
                   <label class="form-label ">Last Name</label>
-                  <CustomInputText v-model="localMember.lastname" type="text" required placeholder="" />
+                  <CustomInputText v-model="localMember.lastname" placeholder="" />
                 </div>
                 <div class="col-md-4">
                   <label class="form-label ">Surname</label>
-                  <CustomInputText v-model="localMember.surname" type="text" required placeholder="" />
+                  <CustomInputText v-model="localMember.surname" placeholder="" />
                 </div>
 
                 <div class="col-md-6">
@@ -46,9 +46,8 @@
                   <CustomInputSelect v-model="localMember.gender" :options="genderOptions" />
                 </div>
                 <div class="col-md-6">
-                  <label class="form-label ">Birthday (MM/YY)</label>
-                  <VueDatePicker v-model="localMember.birthday" model-type="MM/yy" placeholder="" :teleport="true"
-                    class="form-control-date"></VueDatePicker>
+                  <label class="form-label ">Date of birth</label>
+                  <CustomInputDatePicker v-model="localMember.birthday" />
                 </div>
 
                 <div class="col-12">
@@ -58,13 +57,11 @@
                 </div>
                 <div class="col-md-6">
                   <label class="form-label ">Phone Number</label>
-                  <input v-model="localMember.phone" type="tel" class="form-control" required
-                    placeholder="e.g. 08012345678">
+                  <CustomInputText v-model="localMember.phone" placeholder="e.g. 08012345678" />
                 </div>
                 <div class="col-md-6">
                   <label class="form-label ">Email Address</label>
-                  <input v-model="localMember.email" type="email" class="form-control" required
-                    placeholder="example@church.org">
+                  <CustomInputText v-model="localMember.email" placeholder="example@church.org" />
                 </div>
                 <div class="col-12">
                   <label class="form-label ">House Address</label>
@@ -84,8 +81,7 @@
                 </div>
                 <div class="col-md-6">
                   <label class="form-label ">Joining Date</label>
-                  <VueDatePicker v-model="localMember.membership_date" model-type="yyyy-MM-dd"
-                    placeholder="Select date joined" :teleport="true" class="form-control-date"></VueDatePicker>
+                  <CustomInputDatePicker v-model="localMember.membership_date" />
                 </div>
 
                 <div class="col-12 d-flex justify-content-end gap-2 mt-3">
@@ -110,7 +106,6 @@
 
 <script setup lang="ts">
 import { useMemberStore, type Member } from '~/stores/memberStore';
-import VueSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';
 
 const { modal, addMember, updateMember, closeModal: storeCloseModal } = useMemberStore();
@@ -122,13 +117,25 @@ const isSaving = ref(false);
 
 const localMember = ref<Partial<Member> | null>(null);
 
-const genderOptions = ['Male', 'Female'];
+const genderOptions = [
+  { id: '1', label: 'Male' },
+  { id: '2', label: 'Female' },
+];
+
 const positions = [
-  'Member', 'Elder', 'Deacon', 'Worker', 'Choir Leader', 'Usher', 'Sunday School Teacher'
+
+  { id: 1, label: 'Member' },
+  { id: 1, label: 'Elder' },
+  { id: 1, label: 'Deacon' },
+  { id: 1, label: 'Worker' },
+  { id: 1, label: 'Choir' },
+  { id: 1, label: 'Leader' },
+  { id: 1, label: 'Usher' },
+  { id: 1, label: 'Sunday School Teacher' },
 ];
 
 
-const { vSelectAutoPosition } = useFxn
+const { dateDisplay } = useFxn
 
 watch(() => modal.isOpen, (newVal) => {
   if (newVal) {
@@ -139,12 +146,12 @@ watch(() => modal.isOpen, (newVal) => {
         firstname: '',
         lastname: '',
         surname: '',
-        gender: 'Male',
+        gender: { id: '1', label: 'Male' },
         phone: '',
         email: '',
         house_address: '',
         position: 'Member',
-        birthday: '',
+        birthday: new Date(),
         membership_date: new Date().toISOString().split('T')[0]
       };
     }
@@ -157,6 +164,9 @@ const closeModal = () => {
 };
 
 const saveMember = async () => {
+  console.log(localMember.value);
+  // return;
+
   if (!localMember.value) return;
 
   isSaving.value = true;
@@ -210,7 +220,7 @@ onBeforeRouteLeave(() => {
 
 .section-tag {
   display: inline-flex;
-  padding: 0.35rem 0.75rem;
+  /* padding: 0.35rem 0.75rem; */
   border-radius: 999px;
   /* background: rgba(204, 202, 207, 0.08); */
   color: rgba(52, 53, 49, 0.422);

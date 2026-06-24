@@ -90,8 +90,8 @@ const authStore = useAuthStore();
 const router = useRouter();
 
 const form = reactive({
-    username: '',
-    password: '',
+    username: 'admin',
+    password: 'admin123#',
     rememberMe: false,
     usernameErr: '',
     passwordErr: '',

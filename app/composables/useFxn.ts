@@ -1,4 +1,5 @@
 import { createPopper, type VirtualElement } from '@popperjs/core'
+import { useDateFormat, useOnline, useTimeAgo } from '@vueuse/core';
 
 type DebounceFunction<T extends (...args: any[]) => any> = (...args: Parameters<T>) => void;
 
@@ -46,6 +47,34 @@ export default {
             // Add commas to the integer part
             return integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
+    },
+
+    dateDisplay: (date: Date | string, format = 'MMM D, YYYY') => {
+
+        if (!date) return '-';
+
+        // If the date is a string, attempt to convert it to a Date
+        const parsedDate = new Date(date);
+        if (isNaN(parsedDate.getTime())) {
+            return '-';
+        }
+
+        const dd = useDateFormat(parsedDate, format);
+        return dd.value;
+    },
+
+    dateTimeDisplay: (date: Date | string, format = 'MMM D, YYYY -  hh:mm a') => {
+
+        if (!date) return '-';
+
+        // If the date is a string, attempt to convert it to a Date
+        const parsedDate = new Date(date);
+        if (isNaN(parsedDate.getTime())) {
+            return '-';
+        }
+
+        const dd = useDateFormat(parsedDate, format);
+        return dd.value;
     },
 
     vSelectAutoPosition: (dropdownList: HTMLElement, component: { $refs: { toggle: Element | VirtualElement; }; $el: { classList: { toggle: (arg0: string, arg1: boolean) => void; }; }; }, { width }: any) => {

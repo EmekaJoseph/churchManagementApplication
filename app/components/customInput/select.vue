@@ -8,7 +8,7 @@
     <span class="d-md-none">
         <select @change="handleNativeSelection" class="form-select">
             <option v-for="item in options" :value="JSON.stringify(item)" :key="item.id || item[label]">{{ item[label]
-            }}
+                }}
             </option>
         </select>
     </span>
@@ -19,24 +19,24 @@
 const { vSelectAutoPosition } = useFxn
 
 interface Item {
-    id: number;
-    name: string;
+    id: number | string,
+    label: string,
     [key: string]: any;
 }
 
 defineProps({
     modelValue: {
-        type: Object as () => any | null,
+        type: Object as () => Item | null,
         default: null,
     },
     options: {
-        type: Array as () => any[],
+        type: Array as () => Item[],
         required: true,
         default: () => [],
     },
     label: {
         type: String,
-        default: 'name',
+        default: 'label',
     }
 });
 

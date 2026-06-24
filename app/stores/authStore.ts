@@ -6,7 +6,7 @@ const state = reactive({
 export const useAuthStore = () => {
     const login = (username: string, password: string) => {
         // Hardcoded credentials for Church Manager
-        if (username === 'admin' && password === 'admin') {
+        if (username === 'admin' && password === 'admin123#') {
             state.user = {
                 name: 'Admin User',
                 email: 'admin@churchmanager.com',

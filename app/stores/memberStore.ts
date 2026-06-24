@@ -7,10 +7,10 @@ export interface Member {
   phone: string
   email: string
   house_address: string
-  birthday: string
-  gender: 'Male' | 'Female'
-  position: string
-  membership_date: string
+  birthday: Date | string
+  gender: any
+  position: any
+  membership_date: Date | string
 }
 
 const state = reactive({
