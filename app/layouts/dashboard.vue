@@ -45,10 +45,10 @@
           </div>
         </div>
 
-        <button @click="handleLogout" class="logout-btn">
+        <!-- <button @click="handleLogout" class="logout-btn">
           <i class="bi bi-box-arrow-left icon"></i>
           <span>Logout</span>
-        </button>
+        </button> -->
       </div>
     </aside>
 
@@ -61,6 +61,11 @@
           <div class="user-info">
             <span class="user-name">{{ authStore.user.value?.name }}</span>
             <span class="user-role">{{ authStore.user.value?.role }}</span>
+          </div>
+          <div>
+            <button @click="handleLogout" class="logout-btn">
+              <i class="bi bi-power icon"></i>
+            </button>
           </div>
         </div>
       </header>
@@ -389,7 +394,8 @@ const handleLogout = () => {
   padding: 0.625rem 0.75rem;
   border-radius: 12px;
   color: #ef4444;
-  background: none;
+  /* background: none; */
+  background-color: #fbe3e3;
   border: none;
   cursor: pointer;
   font-weight: 500;
@@ -398,7 +404,7 @@ const handleLogout = () => {
 }
 
 .logout-btn:hover {
-  background-color: #fef2f2;
+  background-color: #f9d6d6;
 }
 
 .main-content {

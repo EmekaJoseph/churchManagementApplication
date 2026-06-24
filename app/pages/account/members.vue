@@ -35,10 +35,10 @@
 
         <template #item-surname="item">
           <div class="member-identity cursor-pointer hover-tiltY" @click="viewMember(item)">
-            <span class="member-surname">{{ item.surname }}</span>, {{ item.firstname }} {{ item.lastname }}
+            <!-- <span class="member-surname">{{ item.surname }}</span>, {{ item.firstname }} {{ item.lastname }} -->
+            <span class="text-theme hover-underline">{{ item.firstname }} {{ item.lastname }}</span>
           </div>
         </template>
-
 
         <template #item-action="item">
           <div class="dropdown">

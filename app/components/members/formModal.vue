@@ -30,36 +30,36 @@
 
                 <div class="col-md-4">
                   <label class="form-label">First Name</label>
-                  <CustomInputText v-model="localMember.firstname" placeholder="" />
+                  <CustomInputText v-model="localMember.firstname" placeholder="enter first name" />
                 </div>
                 <div class="col-md-4">
                   <label class="form-label ">Last Name</label>
-                  <CustomInputText v-model="localMember.lastname" placeholder="" />
+                  <CustomInputText v-model="localMember.lastname" placeholder="enter last name" />
                 </div>
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                   <label class="form-label ">Surname</label>
                   <CustomInputText v-model="localMember.surname" placeholder="" />
-                </div>
+                </div> -->
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <label class="form-label ">Gender</label>
-                  <CustomInputSelect v-model="localMember.gender" :options="genderOptions" />
+                  <CustomInputSelect v-model="localMember.gender_id" :options="genderOptions" />
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <label class="form-label ">Date of birth</label>
                   <CustomInputDatePicker v-model="localMember.birthday" />
                 </div>
 
-                <div class="col-12">
+                <!-- <div class="col-12">
                   <div class="section-header section-divider">
                     <span class="section-tag">Contact Details</span>
                   </div>
-                </div>
-                <div class="col-md-6">
+                </div> -->
+                <div class="col-md-4">
                   <label class="form-label ">Phone Number</label>
                   <CustomInputText v-model="localMember.phone" placeholder="e.g. 08012345678" />
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <label class="form-label ">Email Address</label>
                   <CustomInputText v-model="localMember.email" placeholder="example@church.org" />
                 </div>
@@ -76,7 +76,8 @@
                 </div>
                 <div class="col-md-6">
                   <label class="form-label ">Position / Role</label>
-                  <CustomInputSelect v-model="localMember.position" :options="positions" placeholder="Select position">
+                  <CustomInputSelect v-model="localMember.position_id" :options="positionOptions"
+                    placeholder="Select position">
                   </CustomInputSelect>
                 </div>
                 <div class="col-md-6">
@@ -84,16 +85,16 @@
                   <CustomInputDatePicker v-model="localMember.membership_date" />
                 </div>
 
-                <div class="col-12 d-flex justify-content-end gap-2 mt-3">
+                <div class="col-12 d-flex justify-content-end gap-2 mt-5">
                   <button type="button" class="btn btn-light px-4 py-2" @click="closeModal"
                     data-bs-dismiss="modal">Cancel</button>
-                  <button type="submit" class="btn btn-theme px-5 py-2 d-flex align-items-center justify-content-center"
-                    :disabled="isSaving">
-                    <span class="me-2">
+
+                  <CustomInputSubmitButton :loading="false" type="submit" className="btn-theme btn-lg">
+                    <!-- <span class="me-2">
                       <i class="bi bi-check-circle-fill"></i>
-                    </span>
+                    </span> -->
                     {{ isSaving ? 'Saving...' : (modal.mode === 'add' ? 'Add Member' : 'Update Member') }}
-                  </button>
+                  </CustomInputSubmitButton>
                 </div>
               </div>
             </form>
@@ -108,7 +109,7 @@
 import { useMemberStore, type Member } from '~/stores/memberStore';
 import 'vue-select/dist/vue-select.css';
 
-const { modal, addMember, updateMember, closeModal: storeCloseModal } = useMemberStore();
+const { modal, addMember, updateMember, closeModal: storeCloseModal, genderOptions, positionOptions } = useMemberStore();
 const { swalSuccess } = sweetAlerts;
 
 const openModalBtn = ref<any>(null);
@@ -116,26 +117,6 @@ const closeModalBtn = ref<any>(null);
 const isSaving = ref(false);
 
 const localMember = ref<Partial<Member> | null>(null);
-
-const genderOptions = [
-  { id: '1', label: 'Male' },
-  { id: '2', label: 'Female' },
-];
-
-const positions = [
-
-  { id: 1, label: 'Member' },
-  { id: 1, label: 'Elder' },
-  { id: 1, label: 'Deacon' },
-  { id: 1, label: 'Worker' },
-  { id: 1, label: 'Choir' },
-  { id: 1, label: 'Leader' },
-  { id: 1, label: 'Usher' },
-  { id: 1, label: 'Sunday School Teacher' },
-];
-
-
-const { dateDisplay } = useFxn
 
 watch(() => modal.isOpen, (newVal) => {
   if (newVal) {
@@ -146,11 +127,11 @@ watch(() => modal.isOpen, (newVal) => {
         firstname: '',
         lastname: '',
         surname: '',
-        gender: { id: '1', label: 'Male' },
+        gender_id: '1',
         phone: '',
         email: '',
         house_address: '',
-        position: 'Member',
+        position_id: '',
         birthday: new Date(),
         membership_date: new Date().toISOString().split('T')[0]
       };
@@ -246,24 +227,8 @@ onBeforeRouteLeave(() => {
   height: 40px;
 }
 
-.btn-theme {
-  background-color: #7c3aed;
-  color: white;
-  border: none;
-  font-weight: 600;
-  border-radius: 14px;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
 
-.btn-theme:hover {
-  background-color: #6d28d9;
-  transform: translateY(-1px);
-}
 
-.btn-theme:disabled {
-  opacity: 0.75;
-  transform: none;
-}
 
 .btn-light {
   background: #f8fafc;

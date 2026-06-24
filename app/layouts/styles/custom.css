@@ -81,6 +81,10 @@ textarea::placeholder {
   background-color: var(--account-bg);
 }
 
+.hover-underline:hover {
+  text-decoration: underline;
+}
+
 .hide-but-keep-space {
   opacity: 0;
   pointer-events: none;

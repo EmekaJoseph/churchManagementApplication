@@ -8,7 +8,7 @@
     <span class="d-md-none">
         <select @change="handleNativeSelection" class="form-select">
             <option v-for="item in options" :value="JSON.stringify(item)" :key="item.id || item[label]">{{ item[label]
-                }}
+            }}
             </option>
         </select>
     </span>
@@ -26,7 +26,7 @@ interface Item {
 
 defineProps({
     modelValue: {
-        type: Object as () => Item | null,
+        type: Object as () => string | number,
         default: null,
     },
     options: {
