@@ -1,5 +1,5 @@
 <template>
-    <button :type="type" class="btn" :class="className" :disabled="loading" :aria-busy="loading">
+    <button :type="type" class="btn" :class="className" :disabled="loading || disabled" :aria-busy="loading">
         <div v-if="loading" class="loader" aria-hidden="true"></div>
         <slot v-else></slot>
     </button>
@@ -10,6 +10,7 @@
 defineProps({
     className: { type: String, default: '' },
     loading: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
     type: {
         type: String as () => 'button' | 'submit' | 'reset',
         default: 'button'

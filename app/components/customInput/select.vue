@@ -1,7 +1,7 @@
 <template>
     <span class="d-none d-md-block">
         <VueSelect @option:selected="handleSelection" append-to-body :calculate-position="vSelectAutoPosition"
-            :teleport="true" :label="label" class="text-capitalize job-chooser " :clearable="false" :options>
+            :teleport="true" :multiple :label="label" class="text-capitalize job-chooser " :clearable="false" :options>
         </VueSelect>
     </span>
 
@@ -26,7 +26,8 @@ interface Item {
 
 defineProps({
     modelValue: {
-        type: Object as () => string | number,
+        // accepts single value or array
+        type: [Object, Array, String, Number] as PropType<string | number | Item | Item[]>,
         default: null,
     },
     options: {
@@ -37,6 +38,10 @@ defineProps({
     label: {
         type: String,
         default: 'label',
+    },
+    multiple: {
+        type: Boolean,
+        default: false,
     }
 });
 
